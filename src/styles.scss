@@ -1,1 +1,30 @@
-/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Josefin Sans", sans-serif;
+}
+
+body {
+  font-size: 18px;
+}
+
+:root {
+  --blue: hsl(220, 98%, 61%);
+  --gradient: linear-gradient(
+    to right,
+    hsl(192, 100%, 67%),
+    hsl(280, 87%, 65%)
+  );
+
+  // Dark theme
+  --darkblue: hsl(235, 21%, 11%);
+  --darkblack: hsl(235, 24%, 19%);
+  --white: hsl(234, 39%, 85%);
+  --white: hsl(236, 33%, 92%);
+  --darkwhite: hsl(234, 11%, 52%);
+  --gray: hsl(233, 14%, 35%);
+  --darkgray: hsl(237, 14%, 26%);
+}

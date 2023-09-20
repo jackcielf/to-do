@@ -1,0 +1,76 @@
+.main {
+  display: grid;
+  grid-template-rows: 40vh 60vh;
+  overflow: hidden;
+}
+
+.bg-top {
+  position: relative;
+
+  img {
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+}
+
+.bg-bottom {
+  background-color: var(--darkblue);
+}
+
+.content-container {
+  width: 600px;
+  height: 600px;
+  position: absolute;
+  top: 4.5em;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 2px solid blue;
+  color: #e1e1e1;
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 3em;
+
+    h1 {
+      text-transform: uppercase;
+      letter-spacing: 0.3cm;
+    }
+
+    img {
+      width: 30px;
+    }
+  }
+
+  .input-box {
+    position: relative;
+
+    input {
+      width: 100%;
+      padding: 0.95em 0 0.85em 3.5em;
+      font-size: 1.2em;
+      color: var(--white);
+      border: none;
+      border-radius: 5px;
+      background-color: var(--darkblack);
+      outline: none;
+    }
+
+    span {
+      width: 25px;
+      height: 25px;
+      position: absolute;
+      left: 25px;
+      top: 50%;
+      transform: translateY(-50%);
+      border-radius: 50%;
+      border: 2px solid var(--darkgray);
+    }
+  }
+
+  .list-todo {
+    
+  }
+}
