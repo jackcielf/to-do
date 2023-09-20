@@ -1,6 +1,6 @@
 <main class="main">
   <header class="bg-top">
-    <img [src]="imgUrl" alt="" />
+    <img [src]="imgUrl" alt="Imagem de fundo" />
     <div class="content-container">
       <div class="header">
         <h1>todo</h1>
@@ -12,12 +12,25 @@
       </div>
 
       <div class="input-box">
-        <input type="text" placeholder="Create a new todo..." />
+        <input
+          type="text"
+          placeholder="Create a new todo..."
+          (keyup.enter)="saveToDo()"
+          [(ngModel)]="value"
+        />
         <span></span>
       </div>
 
       <div class="list-todo">
-        <div class=""></div>
+        <div class="item">
+          <span>Estudando Angular</span>
+          <img
+            class="delete"
+            src="/assets/images/icon-cross.svg"
+            alt="Ícone de delete"
+          />
+          <img class="verify" [src]="''" (click)="changeVerify()" />
+        </div>
       </div>
       <footer class="footer">
         <span class="items-number">5 items left</span>

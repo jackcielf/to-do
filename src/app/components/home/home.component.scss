@@ -46,7 +46,7 @@
 
     input {
       width: 100%;
-      padding: 0.95em 0 0.85em 3.5em;
+      padding: 1.15em 0 1em 3.5em;
       font-size: 1.1em;
       color: var(--white);
       border: none;
@@ -72,7 +72,40 @@
     background-color: var(--darkblack);
     margin-top: 1.5em;
     border-radius: 5px 5px 0 0;
+    overflow-x: hidden;
     overflow-y: scroll;
+
+    .item {
+      padding: 1.2em 0 1em 3.8em;
+      border-bottom: 2px solid var(--darkgray);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .delete {
+        width: 20px;
+        position: absolute;
+        right: -30px;
+      }
+    }
+
+    .item:hover img {
+      right: 30px;
+      transition: .3s;
+      cursor: pointer;
+    }
+
+    .verify {
+      width: 25px;
+      height: 25px;
+      position: absolute;
+      left: 25px;
+      top: 50%;
+      transform: translateY(-50%);
+      border-radius: 50%;
+      border: 2px solid var(--darkgray);
+    }
   }
 
   .footer {
