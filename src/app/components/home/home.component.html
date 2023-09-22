@@ -1,13 +1,12 @@
 <main class="main">
   <header class="bg-top">
-    <img [src]="imgUrl" alt="Imagem de fundo" />
     <div class="content-container">
       <div class="header">
         <h1>todo</h1>
         <img
           src="/assets/images/icon-{{ mode }}.svg"
           (click)="changeMode()"
-          alt="Imagem de fundo To-Do"
+          alt="Icone de modo escuro e claro"
         />
       </div>
 
@@ -22,14 +21,15 @@
       </div>
 
       <div class="list-todo">
-        <div class="item">
-          <span>Estudando Angular</span>
+        <div class="item" *ngFor="let data of dataToDo">
+          <span>{{ data.description }}</span>
           <img
             class="delete"
             src="/assets/images/icon-cross.svg"
             alt="Ícone de delete"
+            (click)="deleteToDo(data.id)"
           />
-          <img class="verify" [src]="''" (click)="changeVerify()" />
+          <img class="verify" [src]="data.do ? 'icon' : ''" (click)="changeVerify(data)" (ngClass)="data.do ? 'verifyTrue' : ''" />
         </div>
       </div>
       <footer class="footer">
@@ -39,7 +39,7 @@
           <span>Active</span>
           <span>Completed</span>
         </div>
-        <span>Clear completed</span>
+        <span (click)="clearToDo()">Clear completed</span>
       </footer>
     </div>
   </header>

@@ -6,14 +6,16 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./home.component.scss"],
 })
 export class HomeComponent implements OnInit {
-  imgUrl = "/assets/images/bg-desktop-dark.jpg";
   mode = "moon";
   value: string;
-  index = 0;
+  dataToDo: any;
+  icon = '/assets/images/icon-check.svg';
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.listToDo();
+  }
 
   changeMode(): void {
     if (this.mode === "sun") {
@@ -23,19 +25,48 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  
   saveToDo(): void {
-    this.index = this.index + 1;
     let dataToDo = new Array(); // Criando um array para colocar os objetos
-
+    
     // Verificando se existe a propriedade/array 'dataToDo' no localStorage
     if (localStorage.hasOwnProperty("dataToDo")) {
       dataToDo = JSON.parse(localStorage.getItem("dataToDo")); // Pegando os valores da propriedade/array 'dataToDo' e convertendo para JSON
     }
 
-    dataToDo.push({ id: this.index, do: this.value }); // Adicionando um novo objeto ao array
+    let index = dataToDo.length + 1;
+
+    dataToDo.push({ id: index, description: this.value, do: false }); // Adicionando um novo objeto ao array
 
     localStorage.setItem("dataToDo", JSON.stringify(dataToDo)); // Salvando no localStorage
+    
+    this.listToDo();
+  }
+  
+  listToDo(): void {
+    // Pegando os valores da propriedade/array 'dataToDo' 
+    // Convertendo para JSON
+    this.dataToDo = JSON.parse(localStorage.getItem("dataToDo"));
   }
 
-  
+  deleteToDo(data: any): void {
+    let dataToDo = JSON.parse(localStorage.getItem("dataToDo")); // Pegando os valores da propriedade/array 'dataToDo' e convertendo para JSON
+    
+    let tmp = dataToDo.filter((item: any) => item.id !== data );
+
+    localStorage.setItem("dataToDo", JSON.stringify(tmp)); // Salvando no localStorage
+
+    this.listToDo();
+  }
+
+  changeVerify(data: any): void {
+    console.log(!data.do);
+    let newData = !data.do;
+    // localStorage.setItem("dataToDo", '');
+  }
+
+  clearToDo(): void {
+    localStorage.removeItem("dataToDo");
+    this.listToDo();
+  }
 }
