@@ -14,7 +14,7 @@
         <input
           type="text"
           placeholder="Create a new todo..."
-          (keyup.enter)="saveToDo()"
+          (keyup.enter)="todoVerify()"
           [(ngModel)]="value"
         />
         <span></span>
@@ -27,21 +27,27 @@
             class="delete"
             src="/assets/images/icon-cross.svg"
             alt="Ícone de delete"
-            (click)="deleteToDo(data.id)"
+            (click)="delete(data.description)"
           />
-          <img class="verify" [src]="data.do ? 'icon' : ''" (click)="changeVerify(data)" (ngClass)="data.do ? 'verifyTrue' : ''" />
+          <img class="verify" [src]="data.do ? 'icon' : ''" (click)="update(data)" (ngClass)="data.do ? 'verifyTrue' : ''" />
         </div>
       </div>
       <footer class="footer">
-        <span class="items-number">5 items left</span>
+        <span class="items-number">{{sizeList}} items left</span>
         <div class="actions">
           <span class="all">All</span>
           <span>Active</span>
           <span>Completed</span>
         </div>
-        <span (click)="clearToDo()">Clear completed</span>
+        <span (click)="clear()">Clear completed</span>
       </footer>
     </div>
   </header>
   <div class="bg-bottom"></div>
+  <!-- <div class="alert" (ngClass)="hideAlert ? 'hideAlert' : ''">
+    <h2>Alerta</h2>
+    <hr>
+    <p>Por favor, preencha o campo antes de confirmar!</p>
+    <button (click)="alertHide()" >OK!</button>
+  </div> -->
 </main>

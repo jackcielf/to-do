@@ -155,3 +155,49 @@
     }
   }
 }
+
+// .alert {
+//   width: 600px;
+//   height: 300px;
+//   border: none;
+//   border-radius: 10px;
+//   background: var(--darkblue);
+//   color: var(--white);
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+//   padding: 2em;
+//   // text-align: end;
+//   box-shadow: 1px 1px 100px var(--gray);
+
+//   hr {
+//     margin: .5em 0 1em 0;
+//     border-color: rgb(100, 5, 5);
+//   }
+
+//   h2 {
+//     font-size: 3em;
+//     color: rgb(161, 9, 9);
+//   }
+
+//   p {
+//     font-size: 20px;
+//   }
+
+//   button {
+//     font-size: 1.2em;
+//     padding: .5em 1em ;
+//     border-radius: 5px;
+//     background-color: var(--darkgray);
+//     color: var(--white);
+//     border: none;
+//     position: absolute;
+//     right: 1.5em;
+//     bottom: 1.5em;
+//   }
+
+//   .hideAlert {
+//     display: none;
+//   }
+// }
