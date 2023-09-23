@@ -11,7 +11,7 @@ export class HomeComponent implements OnInit {
   dataToDo: any;
   sizeList: number;
   activeMode = true;
-  @ViewChild("main") main: ElementRef;
+  @ViewChild("main", { static: true }) main!: ElementRef;
 
   constructor() {}
 
