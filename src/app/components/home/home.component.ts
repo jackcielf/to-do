@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 
 @Component({
   selector: "app-home",
@@ -11,11 +11,14 @@ export class HomeComponent implements OnInit {
   dataToDo: any;
   icon = "/assets/images/icon-check.svg";
   sizeList: number;
+  activeMode = true;
+  @ViewChild("main") main: ElementRef;
 
   constructor() {}
 
   ngOnInit() {
     this.list();
+    this.loadTheme();
   }
 
   // Validação do tarefa
@@ -55,7 +58,7 @@ export class HomeComponent implements OnInit {
     this.dataToDo = JSON.parse(localStorage.getItem("dataToDo"));
 
     if (localStorage.hasOwnProperty("dataToDo")) {
-      this.sizeList = this.dataToDo.length;
+      this.sizeList = this.dataToDo.length; // Pegando o tamanho da lista
     }
   }
 
@@ -90,12 +93,12 @@ export class HomeComponent implements OnInit {
     this.list();
   }
 
-  // Alteração de modos (escuro e claro)
-  changeMode(): void {
-    if (this.mode === "sun") {
-      this.mode = "moon";
+  saveMode(): void {
+    // Verificando se existe a propriedade/array 'dataToDo' no localStorage
+    if (localStorage.hasOwnProperty("sun")) {
+      this.activeMode = true;
     } else {
-      this.mode = "sun";
+      this.activeMode = false;
     }
   }
 
@@ -106,5 +109,33 @@ export class HomeComponent implements OnInit {
       (item: any) => item.description === this.value
     );
     return !exist ? false : true;
+  }
+
+  // Mudando o tema
+  darkLightMode() {
+    this.activeMode = !this.activeMode;
+  }
+
+  // Carregando o tema escolhido
+  loadTheme(): void {
+    const darkmode = localStorage.getItem("darkmode");
+
+    if (darkmode) {
+      this.darkLightMode();
+    }
+  }
+
+  // Verificação de alteração de temas
+  changeMode(): void {
+    this.darkLightMode();
+
+    localStorage.removeItem("darkmode");
+    this.mode = "moon";
+
+    console.log(this.main.nativeElement.classList.contains("darkMode"));
+    if (this.main.nativeElement.classList.contains("darkMode")) {
+      localStorage.setItem("darkmode", "1"); // Salvando no localStorage
+      this.mode = "sun";
+    }
   }
 }

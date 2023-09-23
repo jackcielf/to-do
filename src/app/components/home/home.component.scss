@@ -2,12 +2,14 @@
   display: grid;
   grid-template-rows: 40vh 60vh;
 }
+
 .bg-top {
   position: relative;
   object-fit: cover;
   background: url(/assets/images/bg-desktop-dark.jpg) no-repeat;
   background-size: cover;
-  
+  transition: .3s;
+
   img {
     width: 150%;
     background-repeat: no-repeat;
@@ -16,6 +18,7 @@
 
 .bg-bottom {
   background-color: var(--darkblue);
+  transition: .3s;
 }
 
 .content-container {
@@ -94,7 +97,7 @@
 
     .item:hover img {
       right: 30px;
-      transition: .3s;
+      transition: 0.3s;
       cursor: pointer;
     }
 
@@ -108,12 +111,12 @@
       border-radius: 50%;
       border: 2px solid var(--darkgray);
       display: grid;
-      place-items: center;  
+      place-items: center;
       cursor: pointer;
 
       &:hover {
-        transition: .3s;
-        border-color: rgba(255, 255, 255, .3);
+        transition: 0.3s;
+        border-color: rgba(255, 255, 255, 0.3);
       }
 
       img {
@@ -163,9 +166,9 @@
       color: var(--gray);
       text-transform: capitalize;
     }
-    
+
     span:hover {
-      transition: .3s;
+      transition: 0.3s;
       color: var(--white);
     }
 
@@ -177,6 +180,17 @@
         color: var(--blue);
       }
     }
+  }
+}
+
+.darkMode{
+  .bg-top {
+    background: url(/assets/images/bg-desktop-light.jpg) no-repeat;
+  background-size: cover;
+  }
+
+  .bg-bottom {
+    background-color: var(--light);
   }
 }
 
@@ -194,6 +208,4 @@
       bottom: -50px;
     }
   }
-
-  
 }
