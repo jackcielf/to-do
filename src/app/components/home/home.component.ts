@@ -96,6 +96,18 @@ export class HomeComponent implements OnInit {
     this.list();
   }
 
+  completedAll(): void {
+    if (localStorage.hasOwnProperty("dataToDo")) {
+      const newDataToDo = this.dataToDo.map((item: any) => {
+        return { ...item, do: true };
+      });
+  
+      localStorage.setItem("dataToDo", JSON.stringify(newDataToDo)); // Salvando no localStorage
+      console.log(this.dataToDo);
+      this.list();
+    }
+  }
+
   saveMode(): void {
     // Verificando se existe a propriedade/array 'dataToDo' no localStorage
     if (localStorage.hasOwnProperty("sun")) {

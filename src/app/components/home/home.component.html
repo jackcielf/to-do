@@ -37,9 +37,9 @@
       <footer class="footer">
         <span class="items-number">{{sizeList}} items left</span>
         <div class="actions">
-          <button class="all">All</button>
-          <button>Active</button>
-          <button>Completed</button>
+          <button class="all" disabled>All</button>
+          <button disabled>Active</button>
+          <button (click)="completedAll()">Completed</button>
         </div>
         <button (click)="clear()">Clear completed</button>
       </footer>
