@@ -57,7 +57,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     __webpack_require__.r(__webpack_exports__);
     /* harmony default export */
-    __webpack_exports__["default"] = "<main #main class=\"main\" [ngClass]=\"activeMode ? 'darkMode' : ''\">\r\n  <header class=\"bg-top\">\r\n    <div class=\"content-container\">\r\n      <div class=\"header\">\r\n        <h1>todo</h1>\r\n        <img\r\n          src=\"/assets/images/icon-{{ mode }}.svg\"\r\n          (click)=\"changeMode()\"\r\n          alt=\"Icone de modo escuro e claro\"\r\n        />\r\n      </div>\r\n\r\n      <div class=\"input-box\">\r\n        <input\r\n          type=\"text\"\r\n          placeholder=\"Create a new todo...\"\r\n          (keydown.enter)=\"todoVerify()\"\r\n          [(ngModel)]=\"value\"\r\n        />\r\n        <span></span>\r\n      </div>\r\n\r\n      <div class=\"list-todo\">\r\n        <div class=\"item\" *ngFor=\"let data of dataToDo\">\r\n          <span [ngClass]=\"data.do ? 'finalized' : ''\">{{ data.description }}</span>\r\n          <img\r\n            class=\"delete\"\r\n            src=\"/assets/images/icon-cross.svg\"\r\n            alt=\"Ícone de delete\"\r\n            (click)=\"delete(data.description)\"\r\n          />\r\n          <div class=\"verify\" (click)=\"update(data)\" [ngClass]=\"data.do ? 'verifyTrue' : ''\">\r\n            <img src=\"/assets/images/icon-check.svg\" [ngClass]=\"data.do ? 'showImg' : ''\">\r\n          </div>\r\n        </div>\r\n      </div>\r\n      <footer class=\"footer\">\r\n        <span class=\"items-number\">{{sizeList}} items left</span>\r\n        <div class=\"actions\">\r\n          <button class=\"all\">All</button>\r\n          <button>Active</button>\r\n          <button>Completed</button>\r\n        </div>\r\n        <button (click)=\"clear()\">Clear completed</button>\r\n      </footer>\r\n    </div>\r\n  </header>\r\n  <div class=\"bg-bottom\"></div>\r\n</main>\r\n";
+    __webpack_exports__["default"] = "<main #main class=\"main\" [ngClass]=\"activeMode ? 'darkMode' : ''\">\r\n  <header class=\"bg-top\">\r\n    <div class=\"content-container\">\r\n      <div class=\"header\">\r\n        <h1>todo</h1>\r\n        <img\r\n          src=\"/assets/images/icon-{{ mode }}.svg\"\r\n          (click)=\"changeMode()\"\r\n          alt=\"Icone de modo escuro e claro\"\r\n        />\r\n      </div>\r\n\r\n      <div class=\"input-box\">\r\n        <input\r\n          type=\"text\"\r\n          placeholder=\"Create a new todo...\"\r\n          (keyup.enter)=\"todoVerify()\"\r\n          [(ngModel)]=\"value\"\r\n        />\r\n        <span></span>\r\n      </div>\r\n\r\n      <div class=\"list-todo\">\r\n        <div class=\"item\" *ngFor=\"let data of dataToDo\">\r\n          <span [ngClass]=\"data.do ? 'finalized' : ''\">{{ data.description }}</span>\r\n          <img\r\n            class=\"delete\"\r\n            src=\"/assets/images/icon-cross.svg\"\r\n            alt=\"Ícone de delete\"\r\n            (click)=\"delete(data.description)\"\r\n          />\r\n          <div class=\"verify\" (click)=\"update(data)\" [ngClass]=\"data.do ? 'verifyTrue' : ''\">\r\n            <img src=\"/assets/images/icon-check.svg\" [ngClass]=\"data.do ? 'showImg' : ''\">\r\n          </div>\r\n        </div>\r\n      </div>\r\n      <footer class=\"footer\">\r\n        <span class=\"items-number\">{{sizeList}} items left</span>\r\n        <div class=\"actions\">\r\n          <button class=\"all\" disabled>All</button>\r\n          <button disabled>Active</button>\r\n          <button (click)=\"completedAll()\">Completed</button>\r\n        </div>\r\n        <button (click)=\"clear()\">Clear completed</button>\r\n      </footer>\r\n    </div>\r\n  </header>\r\n  <div class=\"bg-bottom\"></div>\r\n</main>\r\n";
 
     /***/
   },
@@ -761,6 +761,20 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function clear() {
           localStorage.removeItem("dataToDo");
           this.list();
+        }
+      }, {
+        key: "completedAll",
+        value: function completedAll() {
+          if (localStorage.hasOwnProperty("dataToDo")) {
+            var newDataToDo = this.dataToDo.map(function (item) {
+              return Object.assign({}, item, {
+                "do": true
+              });
+            });
+            localStorage.setItem("dataToDo", JSON.stringify(newDataToDo)); // Salvando no localStorage
+            console.log(this.dataToDo);
+            this.list();
+          }
         }
       }, {
         key: "saveMode",
