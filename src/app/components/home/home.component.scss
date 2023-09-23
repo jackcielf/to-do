@@ -8,7 +8,7 @@
   object-fit: cover;
   background: url(/assets/images/bg-desktop-dark.jpg) no-repeat;
   background-size: cover;
-  transition: .3s;
+  transition: 0.3s;
 
   img {
     width: 150%;
@@ -18,7 +18,7 @@
 
 .bg-bottom {
   background-color: var(--darkblue);
-  transition: .3s;
+  transition: 0.3s;
 }
 
 .content-container {
@@ -88,56 +88,56 @@
       align-items: center;
       justify-content: space-between;
 
+      &:hover img {
+        right: 30px;
+        transition: 0.3s;
+        cursor: pointer;
+      }
+
       .delete {
         width: 20px;
         position: absolute;
         right: -30px;
       }
-    }
 
-    .item:hover img {
-      right: 30px;
-      transition: 0.3s;
-      cursor: pointer;
-    }
+      .verify {
+        width: 25px;
+        height: 25px;
+        position: absolute;
+        left: 25px;
+        top: 50%;
+        transform: translateY(-50%);
+        border-radius: 50%;
+        border: 2px solid var(--darkgray);
+        display: grid;
+        place-items: center;
+        cursor: pointer;
 
-    .verify {
-      width: 25px;
-      height: 25px;
-      position: absolute;
-      left: 25px;
-      top: 50%;
-      transform: translateY(-50%);
-      border-radius: 50%;
-      border: 2px solid var(--darkgray);
-      display: grid;
-      place-items: center;
-      cursor: pointer;
+        &:hover {
+          transition: 0.3s;
+          border-color: rgba(255, 255, 255, 0.3);
+        }
 
-      &:hover {
-        transition: 0.3s;
-        border-color: rgba(255, 255, 255, 0.3);
+        img {
+          display: none;
+          width: 15px;
+          height: 13px;
+        }
+
+        .showImg {
+          display: block;
+        }
       }
 
-      img {
-        display: none;
-        width: 15px;
-        height: 13px;
+      .verifyTrue {
+        background: linear-gradient(45deg, #57ddff, #c058f3);
       }
 
-      .showImg {
-        display: block;
+      .finalized {
+        color: var(--gray);
+        font-style: italic;
+        text-decoration: line-through;
       }
-    }
-
-    .verifyTrue {
-      background: linear-gradient(45deg, #57ddff, #c058f3);
-    }
-
-    .finalized {
-      color: var(--gray);
-      font-style: italic;
-      text-decoration: line-through;
     }
   }
 
@@ -183,14 +183,81 @@
   }
 }
 
-.darkMode{
+.darkMode {
   .bg-top {
     background: url(/assets/images/bg-desktop-light.jpg) no-repeat;
-  background-size: cover;
+    background-size: cover;
   }
 
   .bg-bottom {
-    background-color: var(--light);
+    background-color: var(--lightsatured);
+  }
+
+  .content-container {
+    .input-box {
+      position: relative;
+
+      input {
+        width: 100%;
+        padding: 1.15em 0 1em 3.5em;
+        font-size: 1.1em;
+        color: var(--darkblue);
+        border: none;
+        border-radius: 5px;
+        background-color: var(--light);
+        outline: none;
+      }
+
+      span {
+        width: 25px;
+        height: 25px;
+        position: absolute;
+        left: 25px;
+        top: 50%;
+        transform: translateY(-50%);
+        border-radius: 50%;
+        border: 2px solid var(--lightSoSatured);
+      }
+    }
+
+    .list-todo {
+      height: 377px;
+      background-color: var(--light);
+      margin-top: 1.5em;
+      border-radius: 5px 5px 0 0;
+      overflow-x: hidden;
+      overflow-y: scroll;
+
+      .item {
+        border-bottom: 2px solid var(--lightsatured);
+        color: var(--darkblack);
+
+        .verify {
+          border: 2px solid var(--lightSoSatured);
+
+          &:hover {
+            border-color: rgba(78, 77, 77, 0.6);
+          }
+        }
+
+        .finalized {
+          color: var(--lightdark);
+        }
+      }
+    }
+
+    .footer {
+      background-color: var(--light);
+      border-top: 2px solid var(--lightsatured);
+
+      span {
+        color: var(--lightdark);
+
+        &:hover {
+          color: var(--darkgray);
+        }
+      }
+    }
   }
 }
 

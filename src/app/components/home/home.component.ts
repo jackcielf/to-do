@@ -9,7 +9,6 @@ export class HomeComponent implements OnInit {
   mode = "moon";
   value: string;
   dataToDo: any;
-  icon = "/assets/images/icon-check.svg";
   sizeList: number;
   activeMode = true;
   @ViewChild("main") main: ElementRef;
@@ -19,6 +18,10 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.list();
     this.loadTheme();
+
+    if (localStorage.hasOwnProperty("darkmode")) {
+      this.mode = "sun";
+    }
   }
 
   // Validação do tarefa
