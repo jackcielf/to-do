@@ -10,8 +10,7 @@ export class HomeComponent implements OnInit {
   value: string;
   dataToDo: any;
   icon = "/assets/images/icon-check.svg";
-  sizeList = 0;
-  // hideAlert = true;
+  sizeList: number;
 
   constructor() {}
 
@@ -19,10 +18,7 @@ export class HomeComponent implements OnInit {
     this.list();
   }
 
-  // alertHide(): void {
-  //   this.hideAlert = !this.hideAlert;
-  // }
-
+  // Validação do tarefa
   todoVerify(): void {
     if (
       !this.dataToDo ||
@@ -36,6 +32,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  // Cria uma nova tarefa
   create(): void {
     this.dataToDo = new Array(); // Criando um array para colocar os objetos
 
@@ -51,13 +48,18 @@ export class HomeComponent implements OnInit {
     this.list();
   }
 
+  // Lista as tarefas
   list(): void {
     // Pegando os valores da propriedade/array 'dataToDo'
     // Convertendo para JSON
     this.dataToDo = JSON.parse(localStorage.getItem("dataToDo"));
-    this.sizeList = this.dataToDo.length;
+
+    if (localStorage.hasOwnProperty("dataToDo")) {
+      this.sizeList = this.dataToDo.length;
+    }
   }
 
+  // Deleta uma tarefa
   delete(data: any): void {
     this.dataToDo = JSON.parse(localStorage.getItem("dataToDo")); // Pegando os valores da propriedade/array 'dataToDo' e convertendo para JSON
 
@@ -68,10 +70,10 @@ export class HomeComponent implements OnInit {
     this.list();
   }
 
+  // Atualiza a lista quando há alguma alteração
   update(data: any) {
-    console.log(this.dataToDo)
     const newDataToDo = this.dataToDo.map((item: any) => {
-      if (item.description === this.value) {
+      if (item.description === data.description) {
         return { ...item, do: !data.do };
       }
       return item;
@@ -79,20 +81,16 @@ export class HomeComponent implements OnInit {
 
     localStorage.setItem("dataToDo", JSON.stringify(newDataToDo)); // Salvando no localStorage
 
-    console.log(newDataToDo);
+    this.list();
   }
 
+  // Limpando a lista
   clear(): void {
     localStorage.removeItem("dataToDo");
     this.list();
   }
 
-  todoFinalized(data: any): void {
-    console.log(!data.do);
-    let newData = !data.do;
-    // localStorage.setItem("dataToDo", '');
-  }
-
+  // Alteração de modos (escuro e claro)
   changeMode(): void {
     if (this.mode === "sun") {
       this.mode = "moon";
@@ -101,11 +99,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  // numberItems(): void {
-  //   this.dataToDo = JSON.parse(localStorage.getItem("dataToDo"));
-  //   this.sizeList = this.dataToDo.length;
-  // }
-
+  // Verificando se a tarefa já existe
   newTaskExist(): any {
     this.dataToDo = JSON.parse(localStorage.getItem("dataToDo"));
     let exist = this.dataToDo.find(

@@ -22,14 +22,16 @@
 
       <div class="list-todo">
         <div class="item" *ngFor="let data of dataToDo">
-          <span>{{ data.description }}</span>
+          <span [ngClass]="data.do ? 'finalized' : ''">{{ data.description }}</span>
           <img
             class="delete"
             src="/assets/images/icon-cross.svg"
             alt="Ícone de delete"
             (click)="delete(data.description)"
           />
-          <img class="verify" [src]="data.do ? 'icon' : ''" (click)="update(data)" (ngClass)="data.do ? 'verifyTrue' : ''" />
+          <div class="verify" (click)="update(data)" [ngClass]="data.do ? 'verifyTrue' : ''">
+            <img src="/assets/images/icon-check.svg" [ngClass]="data.do ? 'showImg' : ''">
+          </div>
         </div>
       </div>
       <footer class="footer">
