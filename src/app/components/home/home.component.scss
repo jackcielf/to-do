@@ -156,21 +156,25 @@
     border-top: 2px solid var(--darkgray);
 
     .items-number {
+      color: var(--gray);
       font-weight: 400;
       text-transform: none;
     }
 
-    span {
+    button {
       font-weight: 700;
+      background-color: transparent;
+      border: none;
       cursor: pointer;
       color: var(--gray);
       text-transform: capitalize;
+      
+      &:hover {
+        transition: 0.3s;
+        color: var(--white);
+      }
     }
 
-    span:hover {
-      transition: 0.3s;
-      color: var(--white);
-    }
 
     .actions {
       display: flex;
@@ -200,35 +204,18 @@
       position: relative;
 
       input {
-        width: 100%;
-        padding: 1.15em 0 1em 3.5em;
-        font-size: 1.1em;
         color: var(--darkblue);
-        border: none;
-        border-radius: 5px;
         background-color: var(--light);
-        outline: none;
       }
 
       span {
-        width: 25px;
-        height: 25px;
-        position: absolute;
-        left: 25px;
-        top: 50%;
-        transform: translateY(-50%);
-        border-radius: 50%;
         border: 2px solid var(--lightSoSatured);
       }
     }
 
     .list-todo {
-      height: 377px;
+      height: 380px;
       background-color: var(--light);
-      margin-top: 1.5em;
-      border-radius: 5px 5px 0 0;
-      overflow-x: hidden;
-      overflow-y: scroll;
 
       .item {
         border-bottom: 2px solid var(--lightsatured);
@@ -252,7 +239,7 @@
       background-color: var(--light);
       border-top: 2px solid var(--lightsatured);
 
-      span {
+      button {
         color: var(--lightdark);
 
         &:hover {

@@ -9,7 +9,7 @@ export class HomeComponent implements OnInit {
   mode = "moon";
   value: string;
   dataToDo: any;
-  sizeList: number;
+  sizeList = 0;
   activeMode = true;
   @ViewChild("main", { static: true }) main!: ElementRef;
 
