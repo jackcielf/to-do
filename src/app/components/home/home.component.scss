@@ -1,6 +1,6 @@
 .main {
   display: grid;
-  grid-template-rows: 40vh 60vh;
+  grid-template-rows: 40vh 80vh;
 }
 
 .bg-top {
@@ -141,6 +141,10 @@
     }
   }
 
+  .list-todo::-webkit-scrollbar {
+    display: none;
+  }
+
   .footer {
     width: 100%;
     padding: 1em;
@@ -168,13 +172,12 @@
       cursor: pointer;
       color: var(--gray);
       text-transform: capitalize;
-      
+
       &:hover {
         transition: 0.3s;
         color: var(--white);
       }
     }
-
 
     .actions {
       display: flex;
@@ -186,7 +189,6 @@
     }
   }
 }
-
 
 // DARK MODE ACTIVE
 .darkMode {
