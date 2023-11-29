@@ -1,17 +1,19 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 
 @Component({
-  selector: "app-home",
-  templateUrl: "./home.component.html",
-  styleUrls: ["./home.component.scss"],
+  selector: "app-tasks",
+  templateUrl: "./tasks.component.html",
+  styleUrls: ["./tasks.component.scss"],
 })
-export class HomeComponent implements OnInit {
+export class TasksComponent implements OnInit {
   mode = "moon";
   value: string;
   dataToDo: any;
   sizeList = 0;
   activeMode = true;
   @ViewChild("main", { static: true }) main!: ElementRef;
+  @ViewChild("priorityElement", { static: true }) priorityElement!: ElementRef;
+  numPriority = 0;
 
   constructor() {}
 
@@ -47,7 +49,7 @@ export class HomeComponent implements OnInit {
       this.dataToDo = JSON.parse(localStorage.getItem("dataToDo")); // Pegando os valores da propriedade/array 'dataToDo' e convertendo para JSON
     }
 
-    this.dataToDo.push({ description: this.value, do: false }); // Adicionando um novo objeto ao array
+    this.dataToDo.push({ description: this.value, do: false, priority: this.numPriority }); // Adicionando um novo objeto ao array
 
     localStorage.setItem("dataToDo", JSON.stringify(this.dataToDo)); // Salvando no localStorage
 
@@ -101,7 +103,7 @@ export class HomeComponent implements OnInit {
       const newDataToDo = this.dataToDo.map((item: any) => {
         return { ...item, do: true };
       });
-  
+
       localStorage.setItem("dataToDo", JSON.stringify(newDataToDo)); // Salvando no localStorage
       console.log(this.dataToDo);
       this.list();
@@ -151,6 +153,39 @@ export class HomeComponent implements OnInit {
     if (this.main.nativeElement.classList.contains("darkMode")) {
       localStorage.setItem("darkmode", "1"); // Salvando no localStorage
       this.mode = "sun";
+    }
+  }
+
+  priority(): void {
+    this.numPriority = this.numPriority + 1;
+
+    if (this.numPriority === 3) {
+      this.numPriority = 0;
+    }
+
+    this.priorityVerify();
+    console.log(this.numPriority);
+  }
+
+  priorityVerify(): void {
+    switch (this.numPriority) {
+      case 0:
+        this.priorityElement.nativeElement.classList.remove("high-priority");
+        this.priorityElement.nativeElement.classList.add("low-priority");
+        break;
+
+      case 1:
+        this.priorityElement.nativeElement.classList.remove("low-priority");
+        this.priorityElement.nativeElement.classList.add("medium-priority");
+        break;
+
+      case 2:
+        this.priorityElement.nativeElement.classList.remove("medium-priority");
+        this.priorityElement.nativeElement.classList.add("high-priority");
+        break;
+
+      default:
+        break;
     }
   }
 }

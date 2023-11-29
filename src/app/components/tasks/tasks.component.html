@@ -6,32 +6,38 @@
         <img
           src="/assets/images/icon-{{ mode }}.svg"
           (click)="changeMode()"
-          alt="Icone de modo escuro e claro"
+          alt="Icone de modo claro e escuro"
         />
       </div>
 
       <div class="input-box">
+        <span class="circle"></span>
         <input
           type="text"
           placeholder="Create a new todo..."
           (keyup.enter)="todoVerify()"
           [(ngModel)]="value"
         />
-        <span></span>
+        <span #priorityElement (click)="priority()" class="priority-level"></span>
       </div>
 
       <div class="list-todo">
         <div class="item" *ngFor="let data of dataToDo">
-          <span [ngClass]="data.do ? 'finalized' : ''">{{ data.description }}</span>
+          <div class="verify" (click)="update(data)" [ngClass]="data.do ? 'verifyTrue' : ''">
+            <img src="/assets/images/icon-check.svg" [ngClass]="data.do ? 'showImg' : ''">
+          </div>
+          <p class="description" [ngClass]="data.do ? 'finalized' : ''">{{ data.description }}</p>
+          <span class="priority-level" [ngClass]="{
+            'low-priority' : data.priority === 0,
+            'medium-priority' : data.priority === 1,
+            'high-priority' : data.priority === 2
+          }"></span>
           <img
             class="delete"
             src="/assets/images/icon-cross.svg"
             alt="Ícone de delete"
             (click)="delete(data.description)"
           />
-          <div class="verify" (click)="update(data)" [ngClass]="data.do ? 'verifyTrue' : ''">
-            <img src="/assets/images/icon-check.svg" [ngClass]="data.do ? 'showImg' : ''">
-          </div>
         </div>
       </div>
       <footer class="footer">
