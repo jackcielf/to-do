@@ -1,3 +1,4 @@
+
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 
 @Component({
@@ -20,6 +21,8 @@ export class TasksComponent implements OnInit {
   ngOnInit() {
     this.list();
     this.loadTheme();
+    this.orderPriority();
+    this.list();
 
     if (localStorage.hasOwnProperty("darkmode")) {
       this.mode = "sun";
@@ -49,10 +52,11 @@ export class TasksComponent implements OnInit {
       this.dataToDo = JSON.parse(localStorage.getItem("dataToDo")); // Pegando os valores da propriedade/array 'dataToDo' e convertendo para JSON
     }
 
-    this.dataToDo.push({ description: this.value, do: false, priority: this.numPriority }); // Adicionando um novo objeto ao array
+    this.dataToDo.unshift({ description: this.value, do: false, priority: this.numPriority }); // Adicionando um novo objeto ao array
 
     localStorage.setItem("dataToDo", JSON.stringify(this.dataToDo)); // Salvando no localStorage
 
+    this.value = "";
     this.list();
   }
 
@@ -61,6 +65,7 @@ export class TasksComponent implements OnInit {
     // Pegando os valores da propriedade/array 'dataToDo'
     // Convertendo para JSON
     this.dataToDo = JSON.parse(localStorage.getItem("dataToDo"));
+    this.orderPriority();
 
     if (localStorage.hasOwnProperty("dataToDo")) {
       this.sizeList = this.dataToDo.length; // Pegando o tamanho da lista
@@ -105,7 +110,6 @@ export class TasksComponent implements OnInit {
       });
 
       localStorage.setItem("dataToDo", JSON.stringify(newDataToDo)); // Salvando no localStorage
-      console.log(this.dataToDo);
       this.list();
     }
   }
@@ -149,7 +153,6 @@ export class TasksComponent implements OnInit {
     localStorage.removeItem("darkmode");
     this.mode = "moon";
 
-    console.log(this.main.nativeElement.classList.contains("darkMode"));
     if (this.main.nativeElement.classList.contains("darkMode")) {
       localStorage.setItem("darkmode", "1"); // Salvando no localStorage
       this.mode = "sun";
@@ -164,7 +167,6 @@ export class TasksComponent implements OnInit {
     }
 
     this.priorityVerify();
-    console.log(this.numPriority);
   }
 
   priorityVerify(): void {
@@ -187,5 +189,9 @@ export class TasksComponent implements OnInit {
       default:
         break;
     }
+  }
+
+  orderPriority(): void {
+    this.dataToDo.sort((a: any, b: any) => b.priority - a.priority);
   }
 }
