@@ -57,7 +57,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     __webpack_require__.r(__webpack_exports__);
     /* harmony default export */
-    __webpack_exports__["default"] = "<main #main class=\"main\" [ngClass]=\"activeMode ? 'darkMode' : ''\">\r\n  <header class=\"bg-top\">\r\n    <div class=\"content-container\">\r\n      <div class=\"header\">\r\n        <h1>todo</h1>\r\n        <img\r\n          src=\"/assets/images/icon-{{ mode }}.svg\"\r\n          (click)=\"changeMode()\"\r\n          alt=\"Icone de modo claro e escuro\"\r\n        />\r\n      </div>\r\n\r\n      <div class=\"input-box\">\r\n        <span class=\"circle\"></span>\r\n        <input\r\n          type=\"text\"\r\n          placeholder=\"Crie uma nova tarefa...\"\r\n          (keyup.enter)=\"todoVerify()\"\r\n          [(ngModel)]=\"value\"\r\n        />\r\n        <span\r\n          #priorityElement\r\n          (click)=\"priority()\"\r\n          class=\"priority-level\"\r\n        ></span>\r\n      </div>\r\n\r\n      <div class=\"list-todo\">\r\n        <div class=\"item\" *ngFor=\"let data of dataToDo\">\r\n          <div\r\n            class=\"verify\"\r\n            (click)=\"update(data)\"\r\n            [ngClass]=\"data.do ? 'verifyTrue' : ''\"\r\n          >\r\n            <img\r\n              src=\"/assets/images/icon-check.svg\"\r\n              [ngClass]=\"data.do ? 'showImg' : ''\"\r\n            />\r\n          </div>\r\n          <p class=\"description\" [ngClass]=\"data.do ? 'finalized' : ''\">\r\n            {{ data.description }}\r\n          </p>\r\n          <span\r\n            class=\"priority-level\"\r\n            [ngClass]=\"{\r\n              'low-priority': data.priority === 0,\r\n              'medium-priority': data.priority === 1,\r\n              'high-priority': data.priority === 2\r\n            }\"\r\n          ></span>\r\n          <img\r\n            class=\"delete\"\r\n            src=\"/assets/images/icon-cross.svg\"\r\n            alt=\"Ícone de delete\"\r\n            (click)=\"delete(data.description)\"\r\n          />\r\n        </div>\r\n      </div>\r\n      <footer class=\"footer\">\r\n        <span class=\"items-number\">{{ sizeList }} tarefas</span>\r\n        <button (click)=\"completedAll()\">Completar todas</button>\r\n        <div class=\"actions\">\r\n          <button (click)=\"clear()\">Limpar lista</button>\r\n      </div>\r\n      </footer>\r\n    </div>\r\n  </header>\r\n\r\n  <div class=\"bg-bottom\"></div>\r\n</main>\r\n";
+    __webpack_exports__["default"] = "<main #main class=\"main\" [ngClass]=\"activeMode ? 'darkMode' : ''\">\r\n  <header class=\"bg-top\">\r\n    <div class=\"content-container\">\r\n      <div class=\"header\">\r\n        <h1>todo</h1>\r\n        <img\r\n          src=\"/assets/images/icon-{{ mode }}.svg\"\r\n          (click)=\"changeMode()\"\r\n          alt=\"Icone de modo claro e escuro\"\r\n        />\r\n      </div>\r\n\r\n      <div class=\"input-box\">\r\n        <span class=\"circle\"></span>\r\n        <input\r\n          type=\"text\"\r\n          placeholder=\"Crie uma nova tarefa...\"\r\n          (keyup.enter)=\"todoVerify()\"\r\n          [(ngModel)]=\"value\"\r\n        />\r\n        <span\r\n          #priorityElement\r\n          (click)=\"priority()\"\r\n          class=\"priority-level\"\r\n        ></span>\r\n      </div>\r\n\r\n      <div class=\"list-todo\">\r\n        <div class=\"item\" *ngFor=\"let data of dataToDo\">\r\n          <div\r\n            class=\"verify\"\r\n            (click)=\"update(data)\"\r\n            [ngClass]=\"data.do ? 'verifyTrue' : ''\"\r\n          >\r\n            <img\r\n              src=\"/assets/images/icon-check.svg\"\r\n              [ngClass]=\"data.do ? 'showImg' : ''\"\r\n            />\r\n          </div>\r\n          <p class=\"description\" [ngClass]=\"data.do ? 'finalized' : ''\">\r\n            {{ data.description }}\r\n          </p>\r\n          <span\r\n            class=\"priority-level\"\r\n            [ngClass]=\"{\r\n              'low-priority': data.priority === 0,\r\n              'medium-priority': data.priority === 1,\r\n              'high-priority': data.priority === 2\r\n            }\"\r\n          ></span>\r\n          <img\r\n            class=\"delete\"\r\n            src=\"/assets/images/icon-cross.svg\"\r\n            alt=\"Ícone de delete\"\r\n            (click)=\"delete(data.description)\"\r\n          />\r\n        </div>\r\n      </div>\r\n      <footer class=\"footer\">\r\n        <span class=\"items-number\">{{  sizeList  }} tarefas</span>\r\n        <button (click)=\"completedAll()\">Completar todas</button>\r\n        <div class=\"actions\">\r\n          <button (click)=\"clear()\">Limpar lista</button>\r\n      </div>\r\n      </footer>\r\n    </div>\r\n  </header>\r\n\r\n  <div class=\"bg-bottom\"></div>\r\n</main>\r\n";
 
     /***/
   },
@@ -693,6 +693,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function ngOnInit() {
           this.list();
           this.loadTheme();
+          this.orderPriority();
+          this.list();
           if (localStorage.hasOwnProperty("darkmode")) {
             this.mode = "sun";
           }
@@ -717,12 +719,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             this.dataToDo = JSON.parse(localStorage.getItem("dataToDo")); // Pegando os valores da propriedade/array 'dataToDo' e convertendo para JSON
           }
 
-          this.dataToDo.push({
+          this.dataToDo.unshift({
             description: this.value,
             "do": false,
             priority: this.numPriority
           }); // Adicionando um novo objeto ao array
           localStorage.setItem("dataToDo", JSON.stringify(this.dataToDo)); // Salvando no localStorage
+          this.value = "";
           this.list();
         }
         // Lista as tarefas
@@ -732,6 +735,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           // Pegando os valores da propriedade/array 'dataToDo'
           // Convertendo para JSON
           this.dataToDo = JSON.parse(localStorage.getItem("dataToDo"));
+          this.orderPriority();
           if (localStorage.hasOwnProperty("dataToDo")) {
             this.sizeList = this.dataToDo.length; // Pegando o tamanho da lista
           }
@@ -779,7 +783,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               });
             });
             localStorage.setItem("dataToDo", JSON.stringify(newDataToDo)); // Salvando no localStorage
-            console.log(this.dataToDo);
             this.list();
           }
         }
@@ -826,7 +829,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           this.darkLightMode();
           localStorage.removeItem("darkmode");
           this.mode = "moon";
-          console.log(this.main.nativeElement.classList.contains("darkMode"));
           if (this.main.nativeElement.classList.contains("darkMode")) {
             localStorage.setItem("darkmode", "1"); // Salvando no localStorage
             this.mode = "sun";
@@ -840,7 +842,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             this.numPriority = 0;
           }
           this.priorityVerify();
-          console.log(this.numPriority);
         }
       }, {
         key: "priorityVerify",
@@ -861,6 +862,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             default:
               break;
           }
+        }
+      }, {
+        key: "orderPriority",
+        value: function orderPriority() {
+          this.dataToDo.sort(function (a, b) {
+            return b.priority - a.priority;
+          });
         }
       }]);
       return TasksComponent;
